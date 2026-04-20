@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Glack GAC Social Media Generator</title>
-<style>
+<style>html,body{height:100%;}
+
 :root{--M:#8a1e3e;--Md:#6e1530;--N:#0b1624;--S:#7ec8e3;--S2:#5ab4d8;--P:#0e1826;--BR:rgba(126,200,227,0.13);--T:#e8edf5;--Mu:rgba(232,237,245,0.45);}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{background:var(--N);font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:var(--T);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
+body{background:var(--N);font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:var(--T);height:100vh;display:flex;flex-direction:column;overflow:hidden;}
 header{background:linear-gradient(90deg,var(--Md),var(--M));padding:12px 18px;display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--S2);flex-shrink:0;}
 header img{width:46px;height:46px;object-fit:contain;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5));}
 .ht{font-family:Impact,"Arial Black",sans-serif;font-size:20px;letter-spacing:2px;color:#fff;line-height:1;}
@@ -82,46 +83,13 @@ select option{background:#1a2a40;}
 #output-img.show{display:block;}
 
 /* TEMPLATE PAGE */
-.tmpl-workspace{display:flex;flex:1;overflow:hidden;}
-.tmpl-panel{width:300px;background:var(--P);border-right:1px solid var(--BR);overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
-.tmpl-main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
-.tmpl-canvas-area{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:20px;background:repeating-linear-gradient(45deg,rgba(255,255,255,.01) 0,rgba(255,255,255,.01) 1px,transparent 1px,transparent 12px);}
-.tmpl-canvas-wrap{position:relative;display:inline-block;box-shadow:0 20px 60px rgba(0,0,0,.7);border-radius:3px;}
-.tmpl-canvas-wrap.placing{cursor:crosshair;}
-.tmpl-canvas-wrap img{display:block;max-width:min(580px,100%);max-height:calc(100vh - 200px);border-radius:3px;user-select:none;pointer-events:none;}
-.tmpl-statusbar{background:rgba(14,24,38,.95);border-top:1px solid rgba(126,200,227,.1);padding:10px 20px;display:flex;align-items:center;gap:16px;flex-shrink:0;}
-.field-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;border:1px solid rgba(126,200,227,.1);background:rgba(255,255,255,.02);margin-bottom:4px;transition:all .15s;}
-.field-btn.placed{border-color:rgba(126,200,227,.3);background:rgba(126,200,227,.06);}
-.field-btn.placing{border-color:var(--S);background:rgba(126,200,227,.15);}
-.field-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.field-lbl{flex:1;font-size:11px;color:var(--T);}
-.field-check{font-size:11px;color:var(--S);}
-.field-place-hint{font-size:10px;color:var(--S);font-weight:700;}
-.field-rm{font-size:14px;color:rgba(232,237,245,.3);cursor:pointer;padding:0 4px;line-height:1;}
-.marker{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:10;}
-.marker-dot{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#000;transition:all .15s;}
-.marker.selected .marker-dot{width:28px;height:28px;border:3px solid #fff;}
-.marker-label{position:absolute;left:50%;top:calc(100% + 4px);transform:translateX(-50%);background:rgba(0,0,0,.85);color:#fff;font-size:10px;padding:2px 6px;border-radius:3px;white-space:nowrap;pointer-events:none;}
-.placing-overlay{position:absolute;inset:0;border-radius:3px;border:2px solid var(--S);background:rgba(126,200,227,.04);pointer-events:none;}
-.placing-hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(11,22,36,.9);color:var(--S);font-size:11px;font-weight:700;padding:4px 12px;border-radius:4px;letter-spacing:1px;white-space:nowrap;}
-.tpl-active-badge{background:rgba(91,184,212,.1);border:1px solid rgba(91,184,212,.3);border-radius:6px;padding:7px 10px;font-size:11px;color:var(--S);line-height:1.5;}
-.config-box{background:rgba(255,255,255,.04);border:1px solid rgba(126,200,227,.15);border-radius:8px;padding:12px;margin-bottom:6px;}
-.config-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.config-row:last-child{margin-bottom:0;}
-.config-label{font-size:10px;color:var(--Mu);text-transform:uppercase;letter-spacing:1px;width:52px;flex-shrink:0;}
-.align-btn{flex:1;padding:5px 0;font-size:10px;border-radius:4px;border:1px solid rgba(126,200,227,.25);background:rgba(255,255,255,.04);color:var(--S);cursor:pointer;font-weight:700;}
-.align-btn.active{background:var(--S);color:#0b1624;}
-.weight-btn{flex:1;padding:5px 0;font-size:11px;border-radius:4px;border:1px solid rgba(126,200,227,.25);background:rgba(255,255,255,.04);color:var(--S);cursor:pointer;}
-.weight-btn.active{background:var(--S);color:#0b1624;}
 
 /* ── FACILITIES VIEW ── */
-.fac-workspace{display:flex;flex:1;overflow:hidden;height:calc(100vh - 108px);}
+.fac-workspace{display:flex;flex:1;overflow:hidden;}
 @media(max-width:899px){.fac-workspace{flex-direction:column;height:auto;overflow:visible;}}
 .fac-panel{width:300px;flex-shrink:0;background:var(--P);border-right:1px solid var(--BR);overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:11px;}
 @media(max-width:899px){.fac-panel{width:100%;border-right:none;border-bottom:1px solid var(--BR);}}
-.fac-main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#080f1a;}
-
-/* Admin toggle bar */
+.fac-main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#080f1a;min-height:0;}
 .fac-admin-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:rgba(11,22,36,0.8);border-bottom:1px solid var(--BR);flex-shrink:0;}
 .admin-toggle{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
 .admin-toggle-track{width:40px;height:22px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);position:relative;transition:background .2s;}
@@ -130,65 +98,58 @@ select option{background:#1a2a40;}
 .admin-toggle-track.on .admin-toggle-thumb{transform:translateX(18px);opacity:1;}
 .admin-toggle-lbl{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(232,237,245,.4);}
 .admin-toggle-track.on + .admin-toggle-lbl{color:#e07090;}
-
-/* Filter bar */
-.fac-filter-bar{display:flex;align-items:center;gap:8px;padding:12px 20px;border-bottom:1px solid var(--BR);flex-shrink:0;flex-wrap:wrap;}
+.fac-filter-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--BR);flex-shrink:0;flex-wrap:wrap;}
 .fac-filter-bar .fac-title{font-family:Impact,"Arial Black",sans-serif;font-size:15px;letter-spacing:2px;color:#fff;margin-right:4px;}
-.fac-ftbtn{padding:5px 14px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:4px;cursor:pointer;border:1px solid rgba(126,200,227,.15);background:rgba(255,255,255,.04);color:rgba(232,237,245,.45);transition:all .2s;}
+.fac-ftbtn{padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;border-radius:4px;cursor:pointer;border:1px solid rgba(126,200,227,.15);background:rgba(255,255,255,.04);color:rgba(232,237,245,.45);transition:all .2s;}
 .fac-ftbtn.active{background:rgba(126,200,227,.15);border-color:rgba(126,200,227,.4);color:#7ec8e3;}
-.fac-viewbtn{padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:4px;cursor:pointer;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(232,237,245,.35);margin-left:auto;transition:all .2s;}
+.fac-viewbtn{padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:4px;cursor:pointer;border:1px solid rgba(255,255,255,.08);background:transparent;color:rgba(232,237,245,.35);transition:all .2s;}
 .fac-viewbtn.active{background:rgba(126,200,227,.1);border-color:rgba(126,200,227,.25);color:#7ec8e3;}
-.fac-count{font-size:11px;color:rgba(232,237,245,.3);letter-spacing:1px;white-space:nowrap;}
-
-/* List view */
-.fac-scroll{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px;}
-.cal-day{background:rgba(255,255,255,.03);border:1px solid rgba(126,200,227,.1);border-radius:10px;overflow:hidden;}
-.cal-day-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:rgba(126,200,227,.05);border-bottom:1px solid rgba(126,200,227,.07);}
-.cal-day-date{font-family:Impact,"Arial Black",sans-serif;font-size:14px;color:#fff;letter-spacing:1px;}
+.fac-count{font-size:11px;color:rgba(232,237,245,.3);letter-spacing:1px;white-space:nowrap;margin-left:auto;}
+.fac-scroll{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;min-height:0;}
+/* Day cards */
+.cal-day{background:rgba(255,255,255,.03);border:1px solid rgba(126,200,227,.1);border-radius:8px;overflow:visible;}
+.cal-day-hdr{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(126,200,227,.05);border-bottom:1px solid rgba(126,200,227,.07);}
+.cal-day-date{font-family:Impact,"Arial Black",sans-serif;font-size:13px;color:#fff;letter-spacing:1px;}
 .cal-day-count{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(126,200,227,.5);text-transform:uppercase;}
-.cal-event{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.04);gap:10px;}
+/* Single-line event rows */
+.cal-event{display:flex;align-items:center;justify-content:space-between;padding:6px 12px;border-bottom:1px solid rgba(255,255,255,.04);gap:8px;min-height:0;}
 .cal-event:last-child{border-bottom:none;}
-.cal-event-body{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0;}
-.cal-event-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.fac-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;flex-shrink:0;}
+.cal-event-body{display:flex;align-items:center;gap:7px;flex:1;min-width:0;overflow:hidden;}
+.cal-event-title{font-size:12px;color:#fff;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0;}
+.cal-event-meta{font-size:11px;color:rgba(232,237,245,.4);white-space:nowrap;flex-shrink:0;}
+.cal-event-actions{display:flex;gap:5px;flex-shrink:0;}
+.cal-edit-btn,.cal-del-btn{border:none;border-radius:3px;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;text-transform:uppercase;}
+.cal-edit-btn{background:rgba(126,200,227,.1);color:#7ec8e3;border:1px solid rgba(126,200,227,.2);}
+.cal-del-btn{background:rgba(138,30,62,.15);color:#e07090;border:1px solid rgba(138,30,62,.3);}
+/* Facility badges */
+.fac-badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;flex-shrink:0;white-space:nowrap;}
 .fac-badge.main-pitch    {background:rgba(34,197,94,.18);color:#4ade80;border:1px solid rgba(34,197,94,.3);}
 .fac-badge.training-pitch{background:rgba(167,139,250,.18);color:#c4b5fd;border:1px solid rgba(167,139,250,.3);}
 .fac-badge.gym           {background:rgba(236,72,153,.18);color:#f9a8d4;border:1px solid rgba(236,72,153,.3);}
 .fac-badge.clubhouse     {background:rgba(56,189,248,.18);color:#7ec8e3;border:1px solid rgba(56,189,248,.3);}
 .fac-badge.st-finloughs  {background:rgba(234,179,8,.18);color:#fde047;border:1px solid rgba(234,179,8,.3);}
-.cal-event-title{font-size:13px;color:#fff;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.cal-event-meta{font-size:11px;color:rgba(232,237,245,.4);}
-.cal-event-actions{display:flex;gap:6px;flex-shrink:0;}
-.cal-edit-btn,.cal-del-btn{border:none;border-radius:4px;cursor:pointer;font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;text-transform:uppercase;transition:all .15s;}
-.cal-edit-btn{background:rgba(126,200,227,.1);color:#7ec8e3;border:1px solid rgba(126,200,227,.2);}
-.cal-edit-btn:hover{background:rgba(126,200,227,.2);}
-.cal-del-btn{background:rgba(138,30,62,.15);color:#e07090;border:1px solid rgba(138,30,62,.3);}
-.cal-del-btn:hover{background:rgba(138,30,62,.3);}
-.fac-empty{text-align:center;color:rgba(232,237,245,.25);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:60px 20px;line-height:2;}
-
-/* Weekly grid view */
-.week-grid{flex:1;display:none;flex-direction:column;overflow:hidden;}
+.fac-empty{text-align:center;color:rgba(232,237,245,.25);font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:40px 20px;line-height:2;}
+/* Weekly grid */
+.week-grid{flex:1;display:none;flex-direction:column;overflow:hidden;min-height:0;}
 .week-grid.active{display:flex;}
-.week-nav{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--BR);flex-shrink:0;}
+.week-nav{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--BR);flex-shrink:0;}
 .week-nav-btn{background:rgba(255,255,255,.06);border:1px solid var(--BR);border-radius:4px;color:var(--T);cursor:pointer;font-size:14px;padding:4px 12px;}
-.week-nav-btn:hover{background:rgba(255,255,255,.12);}
 .week-lbl{font-family:Impact,"Arial Black",sans-serif;font-size:14px;letter-spacing:2px;color:#fff;flex:1;text-align:center;}
 .week-cols{flex:1;display:grid;grid-template-columns:repeat(7,1fr);overflow-y:auto;border-top:1px solid var(--BR);}
 .week-col{border-right:1px solid rgba(255,255,255,.05);display:flex;flex-direction:column;}
 .week-col:last-child{border-right:none;}
-.week-col-hdr{padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
-.week-col-day{font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(232,237,245,.4);text-transform:uppercase;}
+.week-col-hdr{padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;}
+.week-col-day{font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(232,237,245,.4);text-transform:uppercase;}
 .week-col-date{font-family:Impact,"Arial Black",sans-serif;font-size:20px;color:#fff;line-height:1.1;}
 .week-col-date.today{color:#7ec8e3;}
-.week-events{flex:1;padding:6px 4px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;}
-.week-event{border-radius:4px;padding:5px 7px;font-size:10px;line-height:1.4;cursor:default;}
+.week-events{flex:1;padding:4px;display:flex;flex-direction:column;gap:3px;overflow-y:auto;}
+.week-event{border-radius:4px;padding:4px 6px;font-size:10px;line-height:1.4;cursor:default;}
 .week-event.main-pitch    {background:rgba(34,197,94,.15);border-left:3px solid #4ade80;color:#d1fae5;}
 .week-event.training-pitch{background:rgba(167,139,250,.15);border-left:3px solid #c4b5fd;color:#ede9fe;}
 .week-event.gym           {background:rgba(236,72,153,.15);border-left:3px solid #f9a8d4;color:#fce7f3;}
 .week-event.clubhouse     {background:rgba(56,189,248,.15);border-left:3px solid #7ec8e3;color:#e0f2fe;}
 .week-event.st-finloughs  {background:rgba(234,179,8,.15);border-left:3px solid #fde047;color:#fef9c3;}
-
-/* Modal overlay */
+/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.show{display:flex;}
 .modal{background:#0e1826;border:1px solid var(--BR);border-radius:12px;padding:24px;width:100%;max-width:420px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.8);}
@@ -201,6 +162,9 @@ select option{background:#1a2a40;}
 .fac-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0e1826;border:1px solid rgba(126,200,227,.3);border-radius:8px;padding:10px 20px;font-size:13px;color:#7ec8e3;font-weight:600;letter-spacing:1px;z-index:2000;opacity:0;transition:opacity .3s;pointer-events:none;}
 .fac-toast.show{opacity:1;}
 
+
+#view-facilities{display:flex;flex-direction:column;}
+#view-facilities .fac-workspace{flex:1;min-height:0;}
 </style>
 </head>
 <body>
@@ -213,7 +177,6 @@ select option{background:#1a2a40;}
 <div class="nav-tabs">
   <button class="nav-tab active" id="nav-gen"  onclick="switchNav('generator')">&#9654; Generator</button>
   <button class="nav-tab"        id="nav-fac"  onclick="switchNav('facilities')">&#128197; Facilities</button>
-  <button class="nav-tab"        id="nav-tmpl" onclick="switchNav('templates')">&#9965; Templates</button>
 </div>
 
 <!-- ════ GENERATOR VIEW ════ -->
@@ -238,7 +201,7 @@ select option{background:#1a2a40;}
     <div class="field"><label class="lbl">Away Team</label><input id="p-away" value="Glack"></div>
   </div>
   <div class="field"><label class="lbl">Glack are playing...</label>
-    <select id="p-side"><option value="away">Away</option><option value="home">Home</option></select></div>
+    <select id="p-side"><option value="away">Away</option><option value="home">Home</option><option value="neutral">Neutral Venue</option></select></div>
   <div class="sec">Date, Time and Venue</div>
   <div class="r2">
     <div class="field"><label class="lbl">Date</label><input type="date" id="p-date" value="2025-04-19"></div>
@@ -341,7 +304,7 @@ select option{background:#1a2a40;}
 </div><!-- /view-generator -->
 
 <!-- ════ FACILITIES VIEW ════ -->
-<div id="view-facilities" style="display:none">
+<div id="view-facilities" style="display:none;flex-direction:column;flex:1;overflow:hidden">
 
   <!-- Admin toggle bar -->
   <div class="fac-admin-bar">
@@ -413,6 +376,21 @@ select option{background:#1a2a40;}
         <div class="fac-title">Club Calendar</div>
         <button class="fac-ftbtn active" id="cf-week"  onclick="filterCal('week')">This Week</button>
         <button class="fac-ftbtn"        id="cf-month" onclick="filterCal('month')">This Month</button>
+        <select id="cf-month-select" onchange="filterCal('pick')" style="background:rgba(255,255,255,.06);border:1px solid rgba(126,200,227,.15);border-radius:4px;color:rgba(232,237,245,.6);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 10px;cursor:pointer;text-transform:uppercase;-webkit-appearance:none;appearance:none;max-width:120px">
+          <option value="">Pick Month</option>
+          <option value="2026-01">Jan 2026</option>
+          <option value="2026-02">Feb 2026</option>
+          <option value="2026-03">Mar 2026</option>
+          <option value="2026-04">Apr 2026</option>
+          <option value="2026-05">May 2026</option>
+          <option value="2026-06">Jun 2026</option>
+          <option value="2026-07">Jul 2026</option>
+          <option value="2026-08">Aug 2026</option>
+          <option value="2026-09">Sep 2026</option>
+          <option value="2026-10">Oct 2026</option>
+          <option value="2026-11">Nov 2026</option>
+          <option value="2026-12">Dec 2026</option>
+        </select>
         <button class="fac-ftbtn"        id="cf-all"   onclick="filterCal('all')">All</button>
         <div class="fac-count" id="cal-count"></div>
         <button class="fac-viewbtn active" id="vbtn-list" onclick="switchCalView('list')">&#9776; List</button>
@@ -486,78 +464,7 @@ select option{background:#1a2a40;}
 </div>
 
 
-<!-- ════ TEMPLATE VIEW ════ -->
-<div id="view-templates" style="display:none" class="tmpl-workspace">
-  <!-- Template panel -->
-  <div class="tmpl-panel">
 
-    <!-- Card type selector -->
-    <div class="tabs">
-      <button class="tab active" id="ttab-prev" onclick="tmplSwitchCard('preview')">Next Match</button>
-      <button class="tab" id="ttab-fix"  onclick="tmplSwitchCard('fixtures')">Fixtures</button>
-      <button class="tab" id="ttab-ft"   onclick="tmplSwitchCard('fulltime')">Full Time</button>
-    </div>
-
-    <!-- Active template badge -->
-    <div id="tmpl-active-badge" style="display:none" class="tpl-active-badge"></div>
-
-    <!-- Upload -->
-    <div class="sec">Template Image</div>
-    <input type="file" id="tmpl-file" accept="image/*" style="display:none" onchange="tmplUpload(event)">
-    <button class="outline-btn" onclick="document.getElementById('tmpl-file').click()" id="tmpl-upload-btn">Upload PNG / JPG from Canva</button>
-    <div id="tmpl-upload-hint" class="hint">
-      Design your card in Canva (1080x1080px), export as PNG, upload here. Leave blank zones where data will appear.
-    </div>
-
-    <!-- Field placement list (shown after upload) -->
-    <div id="tmpl-fields-section" style="display:none">
-      <div class="sec" id="tmpl-fields-lbl">Place Markers</div>
-      <div style="font-size:11px;color:rgba(232,237,245,.4);line-height:1.5;margin-bottom:6px" id="tmpl-place-hint">
-        Tap a field, then click on the image to place it.
-      </div>
-      <div id="tmpl-field-list"></div>
-
-      <!-- Active marker config -->
-      <div id="tmpl-config-section" style="display:none">
-        <div class="sec" id="tmpl-config-title">Configure</div>
-        <div class="config-box" id="tmpl-config-box"></div>
-      </div>
-
-      <!-- Save / export / import / remove -->
-      <div class="sec">Save</div>
-      <button class="gen-btn" onclick="tmplSave()">Save Template</button>
-      <button class="outline-btn" style="margin-top:6px" onclick="tmplExport()">Export Config (.json)</button>
-      <input type="file" id="tmpl-import-file" accept=".json" style="display:none" onchange="tmplImport(event)">
-      <button class="outline-btn" style="margin-top:6px" onclick="document.getElementById('tmpl-import-file').click()">Import Config (.json)</button>
-      <button class="danger-btn" style="margin-top:6px" id="tmpl-remove-btn" onclick="tmplRemove()" style="display:none">Remove Template</button>
-    </div>
-  </div>
-
-  <!-- Template canvas area -->
-  <div class="tmpl-main">
-    <div class="tmpl-canvas-area" id="tmpl-canvas-area">
-      <div id="tmpl-empty" style="text-align:center;color:rgba(232,237,245,.3);font-size:13px;letter-spacing:2px;text-transform:uppercase;line-height:2">
-        <div style="font-size:48px;margin-bottom:16px">&#128247;</div>
-        <div>Upload your Canva design</div>
-        <div>to start placing markers</div>
-      </div>
-      <div class="tmpl-canvas-wrap" id="tmpl-wrap" style="display:none" onclick="tmplCanvasClick(event)">
-        <img id="tmpl-img" src="" alt="Template">
-        <div id="tmpl-markers"></div>
-        <div class="placing-overlay" id="tmpl-placing-overlay" style="display:none">
-          <div class="placing-hint" id="tmpl-placing-hint"></div>
-        </div>
-      </div>
-    </div>
-    <div class="tmpl-statusbar">
-      <div style="display:flex;align-items:center;gap:6px">
-        <div id="tmpl-status-dot" style="width:8px;height:8px;border-radius:50%;background:#7ec8e3"></div>
-        <div style="font-size:12px;color:rgba(232,237,245,.5)" id="tmpl-status-txt">No template loaded</div>
-      </div>
-      <div style="font-size:11px;color:rgba(232,237,245,.3)" id="tmpl-status-sub"></div>
-    </div>
-  </div>
-</div>
 <!-- Polyfill -->
 <script>
 
@@ -683,7 +590,6 @@ function drawDivider(ctx,W,y){
 }
 
 // ── DRAW NEXT MATCH ──
-// New layout: teams stacked left-aligned, VS circle right-aligned centred between them
 function drawPreview(canvas,D){
   var W=CW, H=600;
   canvas.width=W*SC; canvas.height=H*SC;
@@ -712,60 +618,56 @@ function drawPreview(canvas,D){
   ctx.font=sf('bold 11px -apple-system,sans-serif'); ctx.fillStyle='rgba(255,255,255,0.5)';
   ctx.fillText(D.comp.toUpperCase(),36*SC,156*SC);
 
-  var lt=D.glackHome?'Glack':D.home, rt=D.glackHome?D.away:'Glack';
+  var lt=D.home, rt=D.away;  // exactly as entered — home team left, away team right
 
-  // Layout zones:
-  // Teams zone: left edge 36, right edge ~370 (leaving room for VS on right)
-  // VS zone: right side, centred at x=470
-  var teamZoneRight = 365;  // max right extent of team name text
-  var vsX = 470;            // VS circle centre x
-  var vsR = 36;             // VS circle radius
+  // Layout: teams stacked on left (cols 36 to 380), VS circle on right at x=470
+  var teamMaxW = 330;  // max width for team name text
+  var vsX = 468, vsR = 34;
 
-  // --- HOME TEAM (top) ---
-  var homeY = 192;
+  // ── HOME TEAM (top) ──
+  var homeLabelY = 192;
   ctx.font=sf('bold 9px -apple-system,sans-serif');
   ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.textAlign='left'; ctx.textBaseline='top';
-  ctx.fillText('HOME',36*SC,homeY*SC);
+  ctx.fillText('HOME',36*SC,homeLabelY*SC);
 
   var homeSz=52;
   ctx.font=sf(homeSz+'px Impact,Arial Black,sans-serif');
-  while(ctx.measureText(lt).width/SC > (teamZoneRight-36) && homeSz > 24){
+  while(ctx.measureText(lt).width/SC > teamMaxW && homeSz > 26){
     homeSz-=2; ctx.font=sf(homeSz+'px Impact,Arial Black,sans-serif');
   }
   ctx.save(); ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=18*SC;
   ctx.fillStyle='#fff'; ctx.textAlign='left'; ctx.textBaseline='top';
-  ctx.fillText(lt,36*SC,(homeY+14)*SC);
+  ctx.fillText(lt,36*SC,(homeLabelY+14)*SC);
   ctx.restore();
 
-  // Measure actual height of home team name for spacing
-  var homeNameH = homeSz * 1.0;  // approx rendered height
+  var homeBlockH = 14 + homeSz;  // label + name height
 
-  // --- SEPARATOR LINE between teams ---
-  var sepY = homeY + 14 + homeNameH + 14;
-  ctx.fillStyle='rgba(126,200,227,0.15)';
-  ctx.fillRect(36*SC,sepY*SC,(teamZoneRight-36)*SC,1*SC);
+  // Thin separator line between teams
+  var sepY = homeLabelY + homeBlockH + 16;
+  ctx.fillStyle='rgba(126,200,227,0.18)';
+  ctx.fillRect(36*SC,sepY*SC,teamMaxW*SC,SC);
 
-  // --- AWAY TEAM (bottom) ---
-  var awayY = sepY + 14;
+  // ── AWAY TEAM (bottom) ──
+  var awayLabelY = sepY + 14;
   ctx.font=sf('bold 9px -apple-system,sans-serif');
   ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.textAlign='left'; ctx.textBaseline='top';
-  ctx.fillText('AWAY',36*SC,awayY*SC);
+  ctx.fillText('AWAY',36*SC,awayLabelY*SC);
 
   var awaySz=52;
   ctx.font=sf(awaySz+'px Impact,Arial Black,sans-serif');
-  while(ctx.measureText(rt).width/SC > (teamZoneRight-36) && awaySz > 24){
+  while(ctx.measureText(rt).width/SC > teamMaxW && awaySz > 26){
     awaySz-=2; ctx.font=sf(awaySz+'px Impact,Arial Black,sans-serif');
   }
   ctx.save(); ctx.shadowColor='rgba(0,0,0,0.7)'; ctx.shadowBlur=18*SC;
   ctx.fillStyle='rgba(255,255,255,0.82)'; ctx.textAlign='left'; ctx.textBaseline='top';
-  ctx.fillText(rt,36*SC,(awayY+14)*SC);
+  ctx.fillText(rt,36*SC,(awayLabelY+14)*SC);
   ctx.restore();
 
-  // --- VS CIRCLE — right side, vertically centred between the two team name midpoints ---
-  // Centre Y = midpoint between centre of home name and centre of away name
-  var homeMidY = homeY + 14 + homeNameH*0.5;
-  var awayNameH = awaySz * 1.0;
-  var awayMidY  = awayY + 14 + awayNameH*0.5;
+  var awayBlockH = 14 + awaySz;
+
+  // ── VS CIRCLE — right side, centred between home and away name midpoints ──
+  var homeMidY = homeLabelY + 14 + homeSz*0.5;
+  var awayMidY = awayLabelY + 14 + awaySz*0.5;
   var vsY = (homeMidY + awayMidY) / 2;
 
   ctx.beginPath(); ctx.arc(vsX*SC,vsY*SC,vsR*SC,0,Math.PI*2);
@@ -775,22 +677,21 @@ function drawPreview(canvas,D){
   ctx.fillStyle='#7ec8e3'; ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.fillText('VS',vsX*SC,vsY*SC);
 
-  // --- DIVIDER ---
-  // Place divider below the away team name block
-  var awayBottom = awayY + 14 + awayNameH + 18;
-  drawDivider(ctx,W,awayBottom);
+  // ── DIVIDER ──
+  var divY = awayLabelY + awayBlockH + 20;
+  drawDivider(ctx,W,divY);
 
-  // --- INFO ROW (Date / Throw-In / Venue) ---
-  var infoY = awayBottom + 18;
+  // ── INFO ROW (Date / Throw-In / Venue) — all left aligned ──
+  var infoY = divY + 16;
   var sw=(W-72)/3, c1=36;
   ctx.fillStyle='rgba(255,255,255,0.08)';
   ctx.fillRect((c1+sw)*SC,infoY*SC,SC,62*SC);
   ctx.fillRect((c1+sw*2)*SC,infoY*SC,SC,62*SC);
 
   var items=[
-    {lbl:'DATE',     val:D.dt.dayName+' '+D.dt.day+' '+D.dt.mon, sub:null,               x:c1},
-    {lbl:'THROW-IN', val:D.tm.disp+' '+D.tm.ampm,                sub:null,               x:c1+sw+2},
-    {lbl:'VENUE',    val:D.venue, sub:D.glackHome?'Home ground':'Away fixture',           x:c1+sw*2+2}
+    {lbl:'DATE',     val:D.dt.dayName+' '+D.dt.day+' '+D.dt.mon, sub:null,                           x:c1},
+    {lbl:'THROW-IN', val:D.tm.disp+' '+D.tm.ampm,                sub:null,                           x:c1+sw+2},
+    {lbl:'VENUE',    val:D.venue,                                  sub:D.glackHome?'Home ground':(D.neutral?'Neutral venue':'Away fixture'), x:c1+sw*2+2}
   ];
   for(var ii=0;ii<items.length;ii++){
     var it=items[ii];
@@ -802,14 +703,15 @@ function drawPreview(canvas,D){
     if(it.sub){ctx.font=sf('10px -apple-system,sans-serif'); ctx.fillStyle='rgba(255,255,255,0.38)'; ctx.fillText(it.sub,it.x*SC,(infoY+40)*SC);}
   }
 
-  // --- BADGE ---
+  // ── BADGE ──
   var badgeY = infoY + 76;
   ctx.beginPath(); ctx.arc(42*SC,badgeY*SC,3*SC,0,Math.PI*2); ctx.fillStyle='#7ec8e3'; ctx.fill();
   ctx.font=sf('bold 10px -apple-system,sans-serif'); ctx.fillStyle='rgba(255,255,255,0.35)';
   ctx.textAlign='left'; ctx.textBaseline='middle';
-  ctx.fillText(D.glackHome?'HOME FIXTURE - BROLLY PARK, GLACK':'AWAY FIXTURE - TRAVEL AND SUPPORT THE LADS',52*SC,badgeY*SC);
+  var badgeTxt = D.glackHome ? 'HOME FIXTURE - BROLLY PARK, GLACK' : (D.neutral ? 'NEUTRAL VENUE' : 'AWAY FIXTURE - TRAVEL AND SUPPORT THE LADS');
+  ctx.fillText(badgeTxt,52*SC,badgeY*SC);
 
-  // --- HASHTAGS + GLAIC ABU PILL ---
+  // ── HASHTAGS + GLAIC ABU PILL ──
   ctx.font=sf('12px -apple-system,sans-serif'); ctx.fillStyle='rgba(255,255,255,0.22)';
   ctx.textAlign='left'; ctx.textBaseline='middle'; ctx.fillText(D.hash,36*SC,(H-24)*SC);
   drawGlaicPill(ctx,W,H);
@@ -1054,6 +956,84 @@ function downloadImg(fn){
   a.download=fn+'.png'; a.href=currentCanvas.toDataURL('image/png'); a.click();
 }
 
+function generatePreview(){
+  var home=gv('p-home')||'Home', away=gv('p-away')||'Away';
+  var side=gv('p-side'), comp=gv('p-comp')||'Competition';
+  var dateV=gv('p-date'), timeV=gv('p-time');
+  var venue=gv('p-venue')||'TBC', hash=gv('p-hash');
+  var teamType=gv('p-type'), glackHome=side==='home', neutral=side==='neutral';
+  var dt=fmtDate(dateV), tm=fmtTime(timeV);
+  var canvas=document.createElement('canvas');
+  drawPreview(canvas,{home:home,away:away,glackHome:glackHome,neutral:neutral,comp:comp,dt:dt,tm:tm,venue:venue,hash:hash,teamType:teamType});
+  showCard(canvas);
+  document.getElementById('p-dl').classList.add('show');
+  var opp=glackHome?away:home;
+  var lines=['NEXT MATCH',''];
+  if(glackHome){lines.push("O'Connors Glack GAC welcome "+opp+" to Brolly Park this "+dt.dayName+"!");}
+  else if(neutral){lines.push("O'Connors Glack GAC face "+opp+" at a neutral venue this "+dt.dayName+"!");}
+  else{lines.push("O'Connors Glack GAC travel to face "+opp+" this "+dt.dayName+"!");}
+  lines.push('','Date: '+dt.dayName+' '+dt.day+' '+dt.monLong,'Throw-in: '+tm.disp+' '+tm.ampm,'Venue: '+venue,'Competition: '+comp,'','Come on the Glack!','',hash);
+  document.getElementById('p-cap').textContent=lines.join('\n');
+  document.getElementById('p-capwrap').classList.add('show');
+}
+
+function generateFixtures(){
+  var period=gv('fl-period')||'Upcoming Fixtures';
+  var hash=gv('fl-hash'), teamType=gv('fl-type');
+  var entries=document.querySelectorAll('.fix-entry');
+  if(!entries.length){alert('Add at least one fixture first!');return;}
+  var fixtures=[];
+  for(var i=0;i<entries.length;i++){
+    var id=entries[i].id.replace('fix-','');
+    fixtures.push({date:gv('f'+id+'-date'),time:gv('f'+id+'-time'),comp:gv('f'+id+'-comp'),teams:gv('f'+id+'-teams'),venue:gv('f'+id+'-venue'),side:gv('f'+id+'-side')});
+  }
+  var canvas=document.createElement('canvas');
+  drawFixtures(canvas,{period:period,fixtures:fixtures,hash:hash,teamType:teamType});
+  showCard(canvas);
+  document.getElementById('fl-dl').classList.add('show');
+  var lines=['UPCOMING FIXTURES',''];
+  for(var j=0;j<fixtures.length;j++){
+    var f=fixtures[j],fdt=fmtDate(f.date),ftm=fmtTime(f.time);
+    lines.push(fdt.dayName+' '+fdt.day+' '+fdt.monLong+' - '+f.teams);
+    lines.push('   '+ftm.disp+' '+ftm.ampm+'  |  '+f.venue,'');
+  }
+  lines.push('Come on the Glack!','',hash);
+  document.getElementById('fl-cap').textContent=lines.join('\n');
+  document.getElementById('fl-capwrap').classList.add('show');
+}
+
+function generateFullTime(){
+  var home=gv('ft-home')||'Home', away=gv('ft-away')||'Away';
+  var side=gv('ft-side'), comp=gv('ft-comp')||'Competition';
+  var hg=gv('ft-hg'), hp=gv('ft-hp'), ag=gv('ft-ag'), ap=gv('ft-ap');
+  var dateV=gv('ft-date'), hash=gv('ft-hash'), teamType=gv('ft-type');
+  var glackHome=side==='home', dt=fmtDate(dateV);
+  var canvas=document.createElement('canvas');
+  drawFullTime(canvas,{home:home,away:away,glackHome:glackHome,comp:comp,dt:dt,hash:hash,teamType:teamType,hg:hg,hp:hp,ag:ag,ap:ap});
+  showCard(canvas);
+  document.getElementById('ft-dl').classList.add('show');
+  var glackG=glackHome?hg:ag, glackP=glackHome?hp:ap;
+  var oppG=glackHome?ag:hg, oppP=glackHome?ap:hp;
+  var glackTot=gaaTotal(glackG,glackP), oppTot=gaaTotal(oppG,oppP);
+  var result=glackTot>oppTot?'WIN':glackTot<oppTot?'DEFEAT':'DRAW';
+  var opp=glackHome?away:home;
+  var lines=['FULL TIME - '+result,''];
+  if(result==='WIN'){lines.push("Great victory for O'Connors Glack GAC against "+opp+"!");}
+  else if(result==='DEFEAT'){lines.push("Tough day for O'Connors Glack GAC against "+opp+". We go again!");}
+  else{lines.push("A hard fought draw for O'Connors Glack GAC against "+opp+".");}
+  lines.push('','Score: '+gaaStr(glackG,glackP)+' ('+glackTot+') - '+gaaStr(oppG,oppP)+' ('+oppTot+')','','Come on the Glack!','',hash);
+  document.getElementById('ft-cap').textContent=lines.join('\n');
+  document.getElementById('ft-capwrap').classList.add('show');
+}
+
+function switchNav(view) {
+  document.getElementById('nav-gen').classList.toggle('active', view==='generator');
+  document.getElementById('nav-fac').classList.toggle('active', view==='facilities');
+  document.getElementById('view-generator').style.display  = view==='generator'  ? '' : 'none';
+  document.getElementById('view-facilities').style.display = view==='facilities' ? '' : 'none';
+  if (view==='facilities') { initFacilitiesTab(); }
+}
+
 function switchTab(tab){
   document.getElementById('tab-prev').classList.toggle('active',tab==='preview');
   document.getElementById('tab-fix').classList.toggle('active',tab==='fixtures');
@@ -1216,507 +1196,6 @@ try {
   if (stored) tmplSavedTemplates = JSON.parse(stored);
 } catch(e) {}
 
-function tmplSwitchCard(ct) {
-  tmplCardType = ct;
-  document.getElementById('ttab-prev').classList.toggle('active', ct === 'preview');
-  document.getElementById('ttab-fix').classList.toggle('active',  ct === 'fixtures');
-  document.getElementById('ttab-ft').classList.toggle('active',   ct === 'fulltime');
-  tmplActiveField = null;
-  tmplPlacingField = null;
-  // Load saved state for this card type if it exists
-  if (tmplSavedTemplates[ct]) {
-    var saved = tmplSavedTemplates[ct];
-    tmplImg = saved.image;
-    tmplMarkers = JSON.parse(JSON.stringify(saved.markers || {}));
-    tmplShowImage();
-  } else {
-    tmplImg = null;
-    tmplMarkers = {};
-    document.getElementById('tmpl-wrap').style.display = 'none';
-    document.getElementById('tmpl-empty').style.display = 'block';
-    document.getElementById('tmpl-fields-section').style.display = 'none';
-    document.getElementById('tmpl-upload-hint').style.display = 'block';
-  }
-  tmplRenderFields();
-  tmplUpdateStatus();
-  tmplUpdateBadge();
-  tmplUpdateConfig();
-}
-
-function tmplUpload(e) {
-  var file = e.target.files[0]; if (!file) return;
-  var reader = new FileReader();
-  reader.onload = function(ev) {
-    tmplImg = ev.target.result;
-    tmplMarkers = {};
-    tmplActiveField = null;
-    tmplPlacingField = null;
-    tmplShowImage();
-    tmplRenderFields();
-    tmplUpdateStatus();
-  };
-  reader.readAsDataURL(file);
-  e.target.value = '';
-}
-
-function tmplShowImage() {
-  if (!tmplImg) return;
-  document.getElementById('tmpl-img').src = tmplImg;
-  document.getElementById('tmpl-wrap').style.display = 'inline-block';
-  document.getElementById('tmpl-empty').style.display = 'none';
-  document.getElementById('tmpl-fields-section').style.display = 'block';
-  document.getElementById('tmpl-upload-hint').style.display = 'none';
-  document.getElementById('tmpl-upload-btn').textContent = 'Replace Image';
-  tmplRenderMarkers();
-}
-
-function tmplGetFields() {
-  return TMPL_FIELDS[tmplCardType] || [];
-}
-
-function tmplRenderFields() {
-  var fields = tmplGetFields();
-  var placed = Object.keys(tmplMarkers).length;
-  document.getElementById('tmpl-fields-lbl').textContent = 'Place Markers (' + placed + '/' + fields.length + ')';
-  var html = '';
-  for (var i = 0; i < fields.length; i++) {
-    var f = fields[i];
-    var isPlaced = !!tmplMarkers[f.key];
-    var isPlacing = tmplPlacingField === f.key;
-    var cls = 'field-btn' + (isPlaced ? ' placed' : '') + (isPlacing ? ' placing' : '');
-    html += '<div class="' + cls + '" onclick="tmplFieldClick(\'' + f.key + '\')" data-key="' + f.key + '">';
-    html += '<div class="field-dot" style="background:' + f.color + '"></div>';
-    html += '<div class="field-lbl">' + f.label + '</div>';
-    if (isPlacing) {
-      html += '<span class="field-place-hint">CLICK IMAGE</span>';
-    } else if (isPlaced) {
-      html += '<span class="field-check">&#10003;</span>';
-      html += '<span class="field-rm" onclick="event.stopPropagation();tmplRemoveMarker(\'' + f.key + '\')">&#215;</span>';
-    }
-    html += '</div>';
-  }
-  document.getElementById('tmpl-field-list').innerHTML = html;
-  // Update placing overlay
-  var overlay = document.getElementById('tmpl-placing-overlay');
-  if (tmplPlacingField) {
-    overlay.style.display = 'block';
-    var fl = tmplGetFields().find(function(f){return f.key===tmplPlacingField;});
-    document.getElementById('tmpl-placing-hint').textContent = 'Click to place "' + (fl?fl.label:'') + '"';
-    document.getElementById('tmpl-wrap').classList.add('placing');
-  } else {
-    overlay.style.display = 'none';
-    document.getElementById('tmpl-wrap').classList.remove('placing');
-  }
-  document.getElementById('tmpl-place-hint').textContent = tmplPlacingField
-    ? 'Now click on the image where "' + (tmplGetFields().find(function(f){return f.key===tmplPlacingField;})||{label:''}).label + '" should appear.'
-    : 'Tap a field below, then click on the image to place it.';
-}
-
-function tmplFieldClick(key) {
-  if (tmplPlacingField === key) {
-    tmplPlacingField = null;
-  } else {
-    tmplPlacingField = key;
-    tmplActiveField = key;
-  }
-  tmplRenderFields();
-  tmplUpdateConfig();
-}
-
-function tmplRemoveMarker(key) {
-  delete tmplMarkers[key];
-  if (tmplActiveField === key) { tmplActiveField = null; }
-  tmplRenderMarkers();
-  tmplRenderFields();
-  tmplUpdateStatus();
-  tmplUpdateConfig();
-}
-
-function tmplCanvasClick(e) {
-  if (!tmplPlacingField) return;
-  var wrap = document.getElementById('tmpl-wrap');
-  var rect = wrap.getBoundingClientRect();
-  var x = ((e.clientX - rect.left) / rect.width) * 100;
-  var y = ((e.clientY - rect.top)  / rect.height) * 100;
-  var existing = tmplMarkers[tmplPlacingField] || {};
-  tmplMarkers[tmplPlacingField] = Object.assign(
-    {fontSize:28, align:'left', color:'#ffffff', bold:true},
-    existing,
-    {x:x, y:y}
-  );
-  tmplActiveField = tmplPlacingField;
-  tmplPlacingField = null;
-  tmplRenderMarkers();
-  tmplRenderFields();
-  tmplUpdateStatus();
-  tmplUpdateConfig();
-}
-
-function tmplRenderMarkers() {
-  var container = document.getElementById('tmpl-markers');
-  var fields = tmplGetFields();
-  var html = '';
-  for (var i = 0; i < fields.length; i++) {
-    var f = fields[i];
-    var m = tmplMarkers[f.key];
-    if (!m) continue;
-    var sel = tmplActiveField === f.key;
-    html += '<div class="marker' + (sel?' selected':'') + '" style="left:'+m.x+'%;top:'+m.y+'%" onclick="event.stopPropagation();tmplSelectMarker(\''+f.key+'\')">';
-    html += '<div class="marker-dot" style="background:'+f.color+';box-shadow:'+(sel?'0 0 0 2px '+f.color:'none')+'">'+(sel?'&#10003;':'')+'</div>';
-    html += '<div class="marker-label">'+f.label+'</div>';
-    html += '</div>';
-  }
-  container.innerHTML = html;
-}
-
-function tmplSelectMarker(key) {
-  tmplActiveField = key;
-  tmplPlacingField = null;
-  tmplRenderMarkers();
-  tmplRenderFields();
-  tmplUpdateConfig();
-}
-
-function tmplUpdateConfig() {
-  var section = document.getElementById('tmpl-config-section');
-  var box = document.getElementById('tmpl-config-box');
-  if (!tmplActiveField || !tmplMarkers[tmplActiveField]) {
-    section.style.display = 'none';
-    return;
-  }
-  var f = tmplGetFields().find(function(x){return x.key===tmplActiveField;});
-  var m = tmplMarkers[tmplActiveField];
-  if (!f) { section.style.display = 'none'; return; }
-  section.style.display = 'block';
-  document.getElementById('tmpl-config-title').textContent = 'Configure: ' + f.label;
-  var html = '';
-  // Font size
-  html += '<div class="config-row">';
-  html += '<span class="config-label">Size</span>';
-  html += '<input type="range" min="10" max="80" value="'+m.fontSize+'" oninput="tmplUpdateMarker(\''+tmplActiveField+'\',\'fontSize\',parseInt(this.value))" style="flex:1">';
-  html += '<span style="font-size:12px;color:#7ec8e3;min-width:24px;text-align:right">'+m.fontSize+'</span>';
-  html += '</div>';
-  // Colour
-  html += '<div class="config-row">';
-  html += '<span class="config-label">Colour</span>';
-  html += '<input type="color" value="'+m.color+'" oninput="tmplUpdateMarker(\''+tmplActiveField+'\',\'color\',this.value)" style="flex:1;height:30px">';
-  html += '</div>';
-  // Alignment
-  html += '<div class="config-row">';
-  html += '<span class="config-label">Align</span>';
-  html += '<div style="display:flex;gap:4px;flex:1">';
-  var aligns = ['left','center','right'];
-  for (var a = 0; a < aligns.length; a++) {
-    var al = aligns[a];
-    var alabel = al === 'left' ? 'L' : al === 'center' ? 'C' : 'R';
-    html += '<button class="align-btn'+(m.align===al?' active':'')+'" onclick="tmplUpdateMarker(\''+tmplActiveField+'\',\'align\',\''+al+'\')">'+alabel+'</button>';
-  }
-  html += '</div></div>';
-  // Weight
-  html += '<div class="config-row">';
-  html += '<span class="config-label">Weight</span>';
-  html += '<div style="display:flex;gap:4px;flex:1">';
-  html += '<button class="weight-btn'+(m.bold?'':' active')+'" onclick="tmplUpdateMarker(\''+tmplActiveField+'\',\'bold\',false)" style="font-weight:400">Normal</button>';
-  html += '<button class="weight-btn'+(m.bold?' active':'')+'" onclick="tmplUpdateMarker(\''+tmplActiveField+'\',\'bold\',true)" style="font-weight:700">Bold</button>';
-  html += '</div></div>';
-  box.innerHTML = html;
-}
-
-function tmplUpdateMarker(key, prop, val) {
-  if (!tmplMarkers[key]) return;
-  tmplMarkers[key][prop] = val;
-  tmplRenderMarkers();
-  tmplUpdateConfig();
-}
-
-function tmplUpdateStatus() {
-  var fields = tmplGetFields();
-  var placed = Object.keys(tmplMarkers).length;
-  var dot = document.getElementById('tmpl-status-dot');
-  var txt = document.getElementById('tmpl-status-txt');
-  var sub = document.getElementById('tmpl-status-sub');
-  if (!tmplImg) {
-    dot.style.background = 'rgba(232,237,245,0.3)';
-    txt.textContent = 'No template loaded';
-    sub.textContent = '';
-  } else if (placed === 0) {
-    dot.style.background = '#e0a060';
-    txt.textContent = 'Image uploaded - place your markers';
-    sub.textContent = '';
-  } else if (placed < fields.length) {
-    dot.style.background = '#7ec8e3';
-    txt.textContent = placed + ' of ' + fields.length + ' markers placed';
-    sub.textContent = 'Unplaced fields will not appear on the card';
-  } else {
-    dot.style.background = '#90d090';
-    txt.textContent = 'All ' + placed + ' markers placed - ready to save';
-    sub.textContent = '';
-  }
-}
-
-function tmplUpdateBadge() {
-  var badge = document.getElementById('tmpl-active-badge');
-  var removeBtn = document.getElementById('tmpl-remove-btn');
-  var cardLabel = {preview:'Next Match',fixtures:'Fixture List',fulltime:'Full Time'}[tmplCardType];
-  if (tmplSavedTemplates[tmplCardType]) {
-    badge.style.display = 'block';
-    badge.textContent = '&#10003; Custom template active for ' + cardLabel;
-    removeBtn.style.display = 'block';
-  } else {
-    badge.style.display = 'none';
-    removeBtn.style.display = 'none';
-  }
-}
-
-function tmplSave() {
-  if (!tmplImg) { alert('Please upload a template image first.'); return; }
-  var config = {image: tmplImg, markers: tmplMarkers, cardType: tmplCardType};
-  tmplSavedTemplates[tmplCardType] = config;
-  try { localStorage.setItem('glack_templates', JSON.stringify(tmplSavedTemplates)); } catch(e) {}
-  tmplUpdateBadge();
-  var btn = document.querySelector('.gen-btn');
-  // Flash feedback
-  alert('Template saved! It will now be used when you Generate images in the ' + {preview:'Next Match',fixtures:'Fixture List',fulltime:'Full Time'}[tmplCardType] + ' tab.');
-}
-
-function tmplExport() {
-  var config = {glackTemplate:true, version:1, cardType:tmplCardType, markers:tmplMarkers};
-  var blob = new Blob([JSON.stringify(config,null,2)], {type:'application/json'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'glack-template-' + tmplCardType + '.json';
-  a.click();
-}
-
-function tmplImport(e) {
-  var file = e.target.files[0]; if (!file) return;
-  var reader = new FileReader();
-  reader.onload = function(ev) {
-    try {
-      var config = JSON.parse(ev.target.result);
-      if (config.glackTemplate && config.markers) {
-        tmplMarkers = config.markers;
-        if (config.cardType) {
-          tmplCardType = config.cardType;
-          tmplSwitchCard(tmplCardType);
-        }
-        tmplActiveField = null;
-        tmplRenderMarkers();
-        tmplRenderFields();
-        tmplUpdateStatus();
-        alert('Config imported. If you have your template image uploaded the markers will now show.');
-      }
-    } catch(err) { alert('Could not read config file.'); }
-  };
-  reader.readAsText(file);
-  e.target.value = '';
-}
-
-function tmplRemove() {
-  if (!confirm('Remove the custom template for ' + {preview:'Next Match',fixtures:'Fixture List',fulltime:'Full Time'}[tmplCardType] + '?')) return;
-  delete tmplSavedTemplates[tmplCardType];
-  try { localStorage.setItem('glack_templates', JSON.stringify(tmplSavedTemplates)); } catch(e) {}
-  tmplImg = null;
-  tmplMarkers = {};
-  tmplActiveField = null;
-  document.getElementById('tmpl-wrap').style.display = 'none';
-  document.getElementById('tmpl-empty').style.display = 'block';
-  document.getElementById('tmpl-fields-section').style.display = 'none';
-  document.getElementById('tmpl-upload-hint').style.display = 'block';
-  document.getElementById('tmpl-upload-btn').textContent = 'Upload PNG / JPG from Canva';
-  tmplUpdateBadge();
-  tmplUpdateStatus();
-}
-
-// ════ CUSTOM TEMPLATE DRAWING ════
-// When a custom template exists for the current card type, draw the
-// template image as background then overlay text at each marker position.
-function drawWithTemplate(canvas, cardType, dataFields) {
-  var tmpl = tmplSavedTemplates[cardType];
-  if (!tmpl || !tmpl.image) return false;
-  var markers = tmpl.markers || {};
-  if (Object.keys(markers).length === 0) return false;
-
-  // Load template image
-  var bgImg = new Image();
-  bgImg.onload = function() {
-    var W = bgImg.naturalWidth || 1080;
-    var H = bgImg.naturalHeight || 1080;
-    canvas.width  = W * 2;
-    canvas.height = H * 2;
-    var ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-
-    // Draw background
-    ctx.drawImage(bgImg, 0, 0, W*2, H*2);
-
-    // Draw each marker
-    var fields = TMPL_FIELDS[cardType] || [];
-    for (var i = 0; i < fields.length; i++) {
-      var f = fields[i];
-      var m = markers[f.key];
-      var val = dataFields[f.key];
-      if (!m || !val) continue;
-
-      var px = (m.x / 100) * W * 2;
-      var py = (m.y / 100) * H * 2;
-      var fs = (m.fontSize || 28) * 2;
-
-      ctx.font = (m.bold ? 'bold ' : '') + fs + 'px Impact,"Arial Black",sans-serif';
-      ctx.fillStyle = m.color || '#ffffff';
-      ctx.textAlign  = m.align  || 'left';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(String(val), px, py);
-    }
-
-    // Show result
-    showCard(canvas);
-  };
-  bgImg.src = tmpl.image;
-  return true; // template draw initiated
-}
-
-// Build data field map for each card type
-function buildPreviewDataFields(D) {
-  return {
-    homeTeam:    D.glackHome ? 'Glack' : D.home,
-    awayTeam:    D.glackHome ? D.away  : 'Glack',
-    competition: D.comp,
-    date:        D.dt.dayName + ' ' + D.dt.day + ' ' + D.dt.mon,
-    throwIn:     D.tm.disp + ' ' + D.tm.ampm,
-    venue:       D.venue,
-    hashtags:    D.hash,
-    cta:         'Glaic Abu!'
-  };
-}
-
-function buildFixturesDataFields(D) {
-  var out = { period: D.period, hashtags: D.hash };
-  for (var i = 0; i < D.fixtures.length && i < 4; i++) {
-    var f  = D.fixtures[i];
-    var dt = fmtDate(f.date), tm = fmtTime(f.time);
-    out['fixture' + (i+1)] = dt.dayName + ' ' + dt.day + ' ' + dt.mon + '  ' + f.teams + '  ' + tm.disp + ' ' + tm.ampm;
-  }
-  return out;
-}
-
-function buildFullTimeDataFields(D) {
-  var glackG = D.glackHome ? D.hg : D.ag;
-  var glackP = D.glackHome ? D.hp : D.ap;
-  var oppG   = D.glackHome ? D.ag : D.hg;
-  var oppP   = D.glackHome ? D.ap : D.hp;
-  var glackTot = gaaTotal(glackG,glackP), oppTot = gaaTotal(oppG,oppP);
-  var result = glackTot > oppTot ? 'WIN' : glackTot < oppTot ? 'DEFEAT' : 'DRAW';
-  return {
-    homeTeam:    D.glackHome ? 'Glack' : D.home,
-    awayTeam:    D.glackHome ? D.away  : 'Glack',
-    score:       gaaStr(D.glackHome?glackG:oppG, D.glackHome?glackP:oppP) + ' - ' + gaaStr(D.glackHome?oppG:glackG, D.glackHome?oppP:glackP),
-    result:      result,
-    competition: D.comp,
-    date:        D.dt.dayName + ' ' + D.dt.day + ' ' + D.dt.monLong,
-    hashtags:    D.hash
-  };
-}
-
-
-function switchNav(view) {
-  document.getElementById('nav-gen').classList.toggle('active',  view==='generator');
-  document.getElementById('nav-fac').classList.toggle('active',  view==='facilities');
-  document.getElementById('nav-tmpl').classList.toggle('active', view==='templates');
-  document.getElementById('view-generator').style.display  = view==='generator'  ? '' : 'none';
-  document.getElementById('view-facilities').style.display = view==='facilities' ? '' : 'none';
-  document.getElementById('view-templates').style.display  = view==='templates'  ? '' : 'none';
-  if (view==='facilities') { initFacilitiesTab(); }
-}
-
-
-function generatePreview(){
-  var home=gv('p-home')||'Home', away=gv('p-away')||'Away';
-  var side=gv('p-side'), comp=gv('p-comp')||'Competition';
-  var dateV=gv('p-date'), timeV=gv('p-time');
-  var venue=gv('p-venue')||'TBC', hash=gv('p-hash');
-  var teamType=gv('p-type'), glackHome=side==='home';
-  var dt=fmtDate(dateV), tm=fmtTime(timeV);
-  var D={home:home,away:away,glackHome:glackHome,comp:comp,dt:dt,tm:tm,venue:venue,hash:hash,teamType:teamType};
-  // Try custom template first
-  var canvas=document.createElement('canvas');
-  var usedTemplate = drawWithTemplate(canvas, 'preview', buildPreviewDataFields(D));
-  if (!usedTemplate) {
-    drawPreview(canvas,D);
-    showCard(canvas);
-  }
-  document.getElementById('p-dl').classList.add('show');
-  var opp=glackHome?away:home;
-  var lines=['NEXT MATCH',''];
-  if(glackHome){lines.push("O'Connors Glack GAC welcome "+opp+" to Brolly Park this "+dt.dayName+"!");}
-  else{lines.push("O'Connors Glack GAC travel to face "+opp+" this "+dt.dayName+"!");}
-  lines.push('','Date: '+dt.dayName+' '+dt.day+' '+dt.monLong,'Throw-in: '+tm.disp+' '+tm.ampm,'Venue: '+venue,'Competition: '+comp,'','Come on the Glack!','',hash);
-  document.getElementById('p-cap').textContent=lines.join('\n');
-  document.getElementById('p-capwrap').classList.add('show');
-}
-
-function generateFixtures(){
-  var period=gv('fl-period')||'Upcoming Fixtures';
-  var hash=gv('fl-hash'), teamType=gv('fl-type');
-  var entries=document.querySelectorAll('.fix-entry');
-  if(!entries.length){alert('Add at least one fixture first!');return;}
-  var fixtures=[];
-  for(var i=0;i<entries.length;i++){
-    var id=entries[i].id.replace('fix-','');
-    fixtures.push({date:gv('f'+id+'-date'),time:gv('f'+id+'-time'),comp:gv('f'+id+'-comp'),teams:gv('f'+id+'-teams'),venue:gv('f'+id+'-venue'),side:gv('f'+id+'-side')});
-  }
-  var D={period:period,fixtures:fixtures,hash:hash,teamType:teamType};
-  var canvas=document.createElement('canvas');
-  var usedTemplate = drawWithTemplate(canvas, 'fixtures', buildFixturesDataFields(D));
-  if (!usedTemplate) {
-    drawFixtures(canvas,D);
-    showCard(canvas);
-  }
-  document.getElementById('fl-dl').classList.add('show');
-  var lines=['UPCOMING FIXTURES',''];
-  for(var j=0;j<fixtures.length;j++){
-    var f=fixtures[j],fdt=fmtDate(f.date),ftm=fmtTime(f.time);
-    lines.push(fdt.dayName+' '+fdt.day+' '+fdt.monLong+' - '+f.teams);
-    lines.push('   '+ftm.disp+' '+ftm.ampm+'  |  '+f.venue,'');
-  }
-  lines.push('Come on the Glack!','',hash);
-  document.getElementById('fl-cap').textContent=lines.join('\n');
-  document.getElementById('fl-capwrap').classList.add('show');
-}
-
-function generateFullTime(){
-  var home=gv('ft-home')||'Home', away=gv('ft-away')||'Away';
-  var side=gv('ft-side'), comp=gv('ft-comp')||'Competition';
-  var hg=gv('ft-hg'), hp=gv('ft-hp'), ag=gv('ft-ag'), ap=gv('ft-ap');
-  var dateV=gv('ft-date'), hash=gv('ft-hash'), teamType=gv('ft-type');
-  var glackHome=side==='home', dt=fmtDate(dateV);
-  var D={home:home,away:away,glackHome:glackHome,comp:comp,dt:dt,hash:hash,teamType:teamType,hg:hg,hp:hp,ag:ag,ap:ap};
-  var canvas=document.createElement('canvas');
-  var usedTemplate = drawWithTemplate(canvas, 'fulltime', buildFullTimeDataFields(D));
-  if (!usedTemplate) {
-    drawFullTime(canvas,D);
-    showCard(canvas);
-  }
-  document.getElementById('ft-dl').classList.add('show');
-  var glackG=glackHome?hg:ag, glackP=glackHome?hp:ap;
-  var oppG=glackHome?ag:hg, oppP=glackHome?ap:hp;
-  var glackTot=gaaTotal(glackG,glackP), oppTot=gaaTotal(oppG,oppP);
-  var result=glackTot>oppTot?'WIN':glackTot<oppTot?'DEFEAT':'DRAW';
-  var opp=glackHome?away:home;
-  var lines=['FULL TIME - '+result,''];
-  if(result==='WIN'){lines.push("Great victory for O'Connors Glack GAC against "+opp+"!");}
-  else if(result==='DEFEAT'){lines.push("Tough day for O'Connors Glack GAC against "+opp+". We go again!");}
-  else{lines.push("A hard fought draw for O'Connors Glack GAC against "+opp+".");}
-  lines.push('','Score: '+gaaStr(glackG,glackP)+' ('+glackTot+') - '+gaaStr(oppG,oppP)+' ('+oppTot+')','','Come on the Glack!','',hash);
-  document.getElementById('ft-cap').textContent=lines.join('\n');
-  document.getElementById('ft-capwrap').classList.add('show');
-}
-
-
-
-
-
 // ── FACILITIES — SUPABASE CONNECTED ──
 var SB_URL = "https://xgkmhqkrsrtjlniaduhi.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhna21ocWtyc3J0amxuaWFkdWhpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MTI1NzUsImV4cCI6MjA5MjI4ODU3NX0.IPeyCnh2FGmTvkRajB8w810aB398XaPL4LC0mtsrrQ8";
@@ -1822,10 +1301,16 @@ function getWeekRange(offset) {
 function filterCal(mode) {
   CAL_FILTER = mode;
   WEEK_OFFSET = 0;
+  // Sync button active states
   ['week','month','all'].forEach(function(b) {
     var el = document.getElementById('cf-'+b);
     if (el) el.classList.toggle('active', b === mode);
   });
+  // If a specific mode (not 'pick') is chosen, reset the dropdown
+  if (mode !== 'pick') {
+    var sel = document.getElementById('cf-month-select');
+    if (sel) sel.value = '';
+  }
   renderCal();
 }
 
@@ -1837,6 +1322,11 @@ function getFiltered() {
     var d = new Date(b.date + 'T00:00:00');
     if (CAL_FILTER === 'week')  return d >= wr.start && d <= wr.end;
     if (CAL_FILTER === 'month') return b.date.slice(0,7) === thisMonth;
+    if (CAL_FILTER === 'pick') {
+      var sel = document.getElementById('cf-month-select');
+      var picked = sel ? sel.value : '';
+      return picked ? b.date.slice(0,7) === picked : true;
+    }
     return d >= now;
   });
 }
@@ -1895,11 +1385,6 @@ function renderCal() {
         timeStr = fmtT(b.start_time);
       }
 
-      var metaParts = [];
-      if (timeStr) metaParts.push(timeStr);
-      if (b.booked_by) metaParts.push(b.booked_by);
-      if (b.notes) metaParts.push(b.notes);
-
       var actionsHtml = '';
       if (IS_ADMIN) {
         actionsHtml = '<div class="cal-event-actions">' +
@@ -1908,13 +1393,12 @@ function renderCal() {
           '</div>';
       }
 
+      // Single line: [badge] [title...] [time] [edit/del]
       ev.innerHTML =
         '<div class="cal-event-body">' +
-          '<div class="cal-event-top">' +
-            '<span class="fac-badge ' + facClass(b.facility) + '">' + facLabel(b.facility) + '</span>' +
-            '<span class="cal-event-title">' + (b.activity || '') + '</span>' +
-          '</div>' +
-          (metaParts.length ? '<div class="cal-event-meta">' + metaParts.join(' · ') + '</div>' : '') +
+          '<span class="fac-badge ' + facClass(b.facility) + '">' + facLabel(b.facility) + '</span>' +
+          '<span class="cal-event-title">' + (b.activity || '') + '</span>' +
+          (timeStr ? '<span class="cal-event-meta">' + timeStr + '</span>' : '') +
         '</div>' +
         actionsHtml;
 
