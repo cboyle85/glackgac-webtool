@@ -205,6 +205,15 @@ select option{background:#1a2a40;}
   <div class="field"><label class="lbl">Venue</label><input id="p-venue" value="Magilligan"></div>
   <div class="sec">Hashtags</div>
   <input id="p-hash" value="#OConnorsGlack #DerryGAA">
+  <div class="sec">Sponsor (optional)</div>
+  <div class="field"><label class="lbl">Sponsor Logo</label>
+    <input type="file" id="p-sponsor" accept="image/*" style="background:rgba(255,255,255,.06);border:1px solid rgba(126,200,227,.13);border-radius:6px;color:rgba(232,237,245,.6);font-family:inherit;font-size:12px;padding:8px 11px;outline:none;width:100%;">
+  </div>
+  <div id="p-sponsor-preview" style="display:none;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.04);border:1px solid rgba(126,200,227,.12);border-radius:6px;">
+    <img id="p-sponsor-img" style="height:36px;width:auto;object-fit:contain;border-radius:3px;">
+    <div style="flex:1;font-size:11px;color:rgba(232,237,245,.5)" id="p-sponsor-name"></div>
+    <button onclick="clearSponsor()" style="background:rgba(138,30,62,.3);border:1px solid rgba(138,30,62,.5);border-radius:4px;color:#e07090;font-size:10px;letter-spacing:1px;padding:3px 10px;cursor:pointer;text-transform:uppercase">Remove</button>
+  </div>
   <button class="gen-btn" onclick="generatePreview()">Generate Image</button>
   <div class="note">On iPad: long-press image then Save to Photos</div>
   <button class="dl-btn" id="p-dl" onclick="downloadImg('glack-next-match')">Download PNG</button>
@@ -550,8 +559,8 @@ function drawCrestAndLogo(ctx,W,teamType){
   }
   var orgImg=teamType==='ladies'?IMG.lgfa:IMG.gaa;
   if(orgImg){
-    var lh=30, lr=teamType==='ladies'?(269/148):(1200/780), lw=lh*lr;
-    ctx.drawImage(orgImg,(W-30-lw)*SC,(22+44-lh/2)*SC,lw*SC,lh*SC);
+    var lh=90, lr=teamType==='ladies'?(269/148):(1200/780), lw=lh*lr;
+    ctx.drawImage(orgImg,(W-24-lw)*SC,(22+44-lh/2)*SC,lw*SC,lh*SC);
   }
 }
 
@@ -589,6 +598,20 @@ function drawPreview(canvas,D){
   ctx.fillText(String(D.dt.day),(W+10)*SC,(H+30)*SC);
 
   drawCrestAndLogo(ctx,W,D.teamType);
+
+  // Sponsor logo — top left, same vertical zone as crest
+  if(D.sponsor){
+    var maxH=88, maxW=140;
+    var sr=D.sponsor.width/D.sponsor.height;
+    var sh=maxH, sw=maxH*sr;
+    if(sw>maxW){sw=maxW; sh=sw/sr;}
+    // Vertically centre within the crest zone (crest top=22, height=88)
+    var sy=22+(maxH-sh)/2;
+    ctx.save();
+    ctx.globalAlpha=0.92;
+    ctx.drawImage(D.sponsor,24*SC,sy*SC,sw*SC,sh*SC);
+    ctx.restore();
+  }
 
   // Next Match label + Derry GAA
   ctx.fillStyle='#7ec8e3'; ctx.fillRect(36*SC,136*SC,28*SC,2*SC);
@@ -693,7 +716,8 @@ function drawPreview(canvas,D){
   ctx.beginPath(); ctx.arc(42*SC,badgeY*SC,3*SC,0,Math.PI*2); ctx.fillStyle='#7ec8e3'; ctx.fill();
   ctx.font=sf('bold 10px -apple-system,sans-serif'); ctx.fillStyle='rgba(255,255,255,0.35)';
   ctx.textAlign='left'; ctx.textBaseline='middle';
-  var badgeTxt = D.glackHome ? 'HOME FIXTURE - BROLLY PARK, GLACK' : (D.neutral ? 'NEUTRAL VENUE' : 'AWAY FIXTURE - TRAVEL AND SUPPORT THE LADS');
+  var teamWord = D.teamType === 'ladies' ? 'GIRLS' : 'LADS';
+  var badgeTxt = D.glackHome ? 'HOME FIXTURE - BROLLY PARK, GLACK' : (D.neutral ? 'NEUTRAL VENUE' : 'AWAY FIXTURE - TRAVEL AND SUPPORT THE ' + teamWord);
   ctx.fillText(badgeTxt,52*SC,badgeY*SC);
 
   // ── HASHTAGS + GLAIC ABU PILL ──
@@ -936,6 +960,38 @@ function downloadImg(fn){
   a.download=fn+'.png'; a.href=currentCanvas.toDataURL('image/png'); a.click();
 }
 
+// ── SPONSOR IMAGE ──
+var SPONSOR_IMG = null;
+
+document.addEventListener('change', function(e) {
+  if (e.target.id !== 'p-sponsor') return;
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var img = new Image();
+    img.onload = function() {
+      SPONSOR_IMG = img;
+      var prev = document.getElementById('p-sponsor-preview');
+      var pimg = document.getElementById('p-sponsor-img');
+      var pname = document.getElementById('p-sponsor-name');
+      if (prev) prev.style.display = 'flex';
+      if (pimg) pimg.src = ev.target.result;
+      if (pname) pname.textContent = file.name;
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function clearSponsor() {
+  SPONSOR_IMG = null;
+  var inp = document.getElementById('p-sponsor');
+  var prev = document.getElementById('p-sponsor-preview');
+  if (inp) inp.value = '';
+  if (prev) prev.style.display = 'none';
+}
+
 function generatePreview(){
   var home=gv('p-home')||'Home', away=gv('p-away')||'Away';
   var side=gv('p-side'), comp=gv('p-comp')||'Competition';
@@ -944,7 +1000,7 @@ function generatePreview(){
   var teamType=gv('p-type'), glackHome=side==='home', neutral=side==='neutral';
   var dt=fmtDate(dateV), tm=fmtTime(timeV);
   var canvas=document.createElement('canvas');
-  drawPreview(canvas,{home:home,away:away,glackHome:glackHome,neutral:neutral,comp:comp,dt:dt,tm:tm,venue:venue,hash:hash,teamType:teamType});
+  drawPreview(canvas,{home:home,away:away,glackHome:glackHome,neutral:neutral,comp:comp,dt:dt,tm:tm,venue:venue,hash:hash,teamType:teamType,sponsor:SPONSOR_IMG});
   showCard(canvas);
   document.getElementById('p-dl').classList.add('show');
   var opp=glackHome?away:home;
