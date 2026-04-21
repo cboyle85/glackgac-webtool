@@ -260,6 +260,8 @@ select option{background:#1a2a40;}
     <div class="field"><label class="lbl">Home Team</label><input id="ft-home" value="Magilligan"></div>
     <div class="field"><label class="lbl">Away Team</label><input id="ft-away" value="Glack"></div>
   </div>
+  <div class="field"><label class="lbl">Glack are playing...</label>
+    <select id="ft-side"><option value="away">Away</option><option value="home">Home</option></select></div>
 
   <div class="sec">Home Score</div>
   <div class="r2">
@@ -799,8 +801,9 @@ function drawFullTime(canvas,D){
   var homeTot=gaaTotal(D.hg,D.hp), awayTot=gaaTotal(D.ag,D.ap);
   var lScore=gaaStr(D.hg,D.hp), rScore=gaaStr(D.ag,D.ap);
 
-  // WIN/DEFEAT/DRAW: home vs away total
-  var result=homeTot>awayTot?'WIN':homeTot<awayTot?'DEFEAT':'DRAW';
+  // WIN/DEFEAT/DRAW always from Glack's perspective
+  var glackTot=D.glackHome?homeTot:awayTot, oppTot=D.glackHome?awayTot:homeTot;
+  var result=glackTot>oppTot?'WIN':glackTot<oppTot?'DEFEAT':'DRAW';
   var rc=result==='WIN'?'#7ec8e3':result==='DEFEAT'?'#e07090':'#f0c040';
 
   // Full Time label in result colour
@@ -887,7 +890,7 @@ function drawFullTime(canvas,D){
   // Totals below in smaller text
   ctx.font=sf('bold 11px -apple-system,sans-serif');
   ctx.fillStyle='rgba(255,255,255,0.28)';
-  var totStr='('+glackTot+')  -  ('+oppTot+')';
+  var totStr='('+homeTot+')  -  ('+awayTot+')';
   var totW=ctx.measureText(totStr).width/SC;
   ctx.textAlign='left';
   ctx.fillText(totStr,(W/2-totW/2)*SC,(scoreY+58)*SC);
@@ -986,11 +989,13 @@ function generateFullTime(){
   var dateV=gv('ft-date'), hash=gv('ft-hash'), teamType=gv('ft-type');
   var dt=fmtDate(dateV);
   var canvas=document.createElement('canvas');
-  drawFullTime(canvas,{home:home,away:away,comp:comp,dt:dt,hash:hash,teamType:teamType,hg:hg,hp:hp,ag:ag,ap:ap});
+  drawFullTime(canvas,{home:home,away:away,glackHome:glackHome,comp:comp,dt:dt,hash:hash,teamType:teamType,hg:hg,hp:hp,ag:ag,ap:ap});
   showCard(canvas);
   document.getElementById('ft-dl').classList.add('show');
+  var side=gv('ft-side'), glackHome=side==='home';
   var homeTot=gaaTotal(hg,hp), awayTot=gaaTotal(ag,ap);
-  var result=homeTot>awayTot?'WIN':homeTot<awayTot?'DEFEAT':'DRAW';
+  var glackTot=glackHome?homeTot:awayTot, oppTot=glackHome?awayTot:homeTot;
+  var result=glackTot>oppTot?'WIN':glackTot<oppTot?'DEFEAT':'DRAW';
   var lines=['FULL TIME',''];
   lines.push(home+' '+gaaStr(hg,hp)+' ('+homeTot+')  vs  '+away+' '+gaaStr(ag,ap)+' ('+awayTot+')');
   lines.push('','Come on the Glack!','',hash);
