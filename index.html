@@ -265,8 +265,7 @@ select option{background:#1a2a40;}
     <div class="field"><label class="lbl">Home Team</label><input id="ft-home" value="Magilligan"></div>
     <div class="field"><label class="lbl">Away Team</label><input id="ft-away" value="Glack"></div>
   </div>
-  <div class="field"><label class="lbl">Glack are playing...</label>
-    <select id="ft-side"><option value="away">Away</option><option value="home">Home</option></select></div>
+
   <div class="sec">Home Score</div>
   <div class="r2">
     <div class="field"><label class="lbl">Goals</label><input id="ft-hg" type="number" min="0" value="1"></div>
@@ -375,22 +374,11 @@ select option{background:#1a2a40;}
       <div class="fac-filter-bar">
         <div class="fac-title">Club Calendar</div>
         <button class="fac-ftbtn active" id="cf-week"  onclick="filterCal('week')">This Week</button>
-        <button class="fac-ftbtn"        id="cf-month" onclick="filterCal('month')">This Month</button>
-        <select id="cf-month-select" onchange="filterCal('pick')" style="background:rgba(255,255,255,.06);border:1px solid rgba(126,200,227,.15);border-radius:4px;color:rgba(232,237,245,.6);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 10px;cursor:pointer;text-transform:uppercase;-webkit-appearance:none;appearance:none;max-width:120px">
-          <option value="">Pick Month</option>
-          <option value="2026-01">Jan 2026</option>
-          <option value="2026-02">Feb 2026</option>
-          <option value="2026-03">Mar 2026</option>
-          <option value="2026-04">Apr 2026</option>
-          <option value="2026-05">May 2026</option>
-          <option value="2026-06">Jun 2026</option>
-          <option value="2026-07">Jul 2026</option>
-          <option value="2026-08">Aug 2026</option>
-          <option value="2026-09">Sep 2026</option>
-          <option value="2026-10">Oct 2026</option>
-          <option value="2026-11">Nov 2026</option>
-          <option value="2026-12">Dec 2026</option>
+        <button class="fac-ftbtn"        id="cf-nweek" onclick="filterCal('nextweek')">Next Week</button>
+        <select id="cf-week-select" onchange="filterCal('pickweek')" style="background:rgba(255,255,255,.06);border:1px solid rgba(126,200,227,.15);border-radius:4px;color:rgba(232,237,245,.6);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 10px;cursor:pointer;-webkit-appearance:none;appearance:none;max-width:140px">
+          <option value="">Week beginning...</option>
         </select>
+        <button class="fac-ftbtn"        id="cf-month" onclick="filterCal('month')">This Month</button>
         <button class="fac-ftbtn"        id="cf-all"   onclick="filterCal('all')">All</button>
         <div class="fac-count" id="cal-count"></div>
         <button class="fac-viewbtn active" id="vbtn-list" onclick="switchCalView('list')">&#9776; List</button>
@@ -811,20 +799,14 @@ function drawFullTime(canvas,D){
 
   drawCrestAndLogo(ctx,W,D.teamType);
 
-  // Work out which side is Glack and which is the opponent
-  var glackG=D.glackHome?D.hg:D.ag, glackP=D.glackHome?D.hp:D.ap;
-  var oppG=D.glackHome?D.ag:D.hg, oppP=D.glackHome?D.ap:D.hp;
-  var glackTot=gaaTotal(glackG,glackP), oppTot=gaaTotal(oppG,oppP);
+  // Home team left, away team right — exactly as entered
+  var lt=D.home, rt=D.away;
+  var homeTot=gaaTotal(D.hg,D.hp), awayTot=gaaTotal(D.ag,D.ap);
+  var lScore=gaaStr(D.hg,D.hp), rScore=gaaStr(D.ag,D.ap);
 
-  // WIN/DEFEAT/DRAW is always from Glack's perspective
-  var result=glackTot>oppTot?'WIN':glackTot<oppTot?'DEFEAT':'DRAW';
+  // WIN/DEFEAT/DRAW: home vs away total
+  var result=homeTot>awayTot?'WIN':homeTot<awayTot?'DEFEAT':'DRAW';
   var rc=result==='WIN'?'#7ec8e3':result==='DEFEAT'?'#e07090':'#f0c040';
-
-  // Left side = home team, right side = away team (standard layout)
-  var lt=D.glackHome?'Glack':D.home;
-  var rt=D.glackHome?D.away:'Glack';
-  var lScore=gaaStr(D.glackHome?glackG:oppG, D.glackHome?glackP:oppP);
-  var rScore=gaaStr(D.glackHome?oppG:glackG, D.glackHome?oppP:glackP);
 
   // Full Time label in result colour
   ctx.fillStyle=rc; ctx.fillRect(36*SC,136*SC,28*SC,2*SC);
@@ -1007,21 +989,16 @@ function generateFullTime(){
   var side=gv('ft-side'), comp=gv('ft-comp')||'Competition';
   var hg=gv('ft-hg'), hp=gv('ft-hp'), ag=gv('ft-ag'), ap=gv('ft-ap');
   var dateV=gv('ft-date'), hash=gv('ft-hash'), teamType=gv('ft-type');
-  var glackHome=side==='home', dt=fmtDate(dateV);
+  var dt=fmtDate(dateV);
   var canvas=document.createElement('canvas');
-  drawFullTime(canvas,{home:home,away:away,glackHome:glackHome,comp:comp,dt:dt,hash:hash,teamType:teamType,hg:hg,hp:hp,ag:ag,ap:ap});
+  drawFullTime(canvas,{home:home,away:away,comp:comp,dt:dt,hash:hash,teamType:teamType,hg:hg,hp:hp,ag:ag,ap:ap});
   showCard(canvas);
   document.getElementById('ft-dl').classList.add('show');
-  var glackG=glackHome?hg:ag, glackP=glackHome?hp:ap;
-  var oppG=glackHome?ag:hg, oppP=glackHome?ap:hp;
-  var glackTot=gaaTotal(glackG,glackP), oppTot=gaaTotal(oppG,oppP);
-  var result=glackTot>oppTot?'WIN':glackTot<oppTot?'DEFEAT':'DRAW';
-  var opp=glackHome?away:home;
-  var lines=['FULL TIME - '+result,''];
-  if(result==='WIN'){lines.push("Great victory for O'Connors Glack GAC against "+opp+"!");}
-  else if(result==='DEFEAT'){lines.push("Tough day for O'Connors Glack GAC against "+opp+". We go again!");}
-  else{lines.push("A hard fought draw for O'Connors Glack GAC against "+opp+".");}
-  lines.push('','Score: '+gaaStr(glackG,glackP)+' ('+glackTot+') - '+gaaStr(oppG,oppP)+' ('+oppTot+')','','Come on the Glack!','',hash);
+  var homeTot=gaaTotal(hg,hp), awayTot=gaaTotal(ag,ap);
+  var result=homeTot>awayTot?'WIN':homeTot<awayTot?'DEFEAT':'DRAW';
+  var lines=['FULL TIME',''];
+  lines.push(home+' '+gaaStr(hg,hp)+' ('+homeTot+')  vs  '+away+' '+gaaStr(ag,ap)+' ('+awayTot+')');
+  lines.push('','Come on the Glack!','',hash);
   document.getElementById('ft-cap').textContent=lines.join('\n');
   document.getElementById('ft-capwrap').classList.add('show');
 }
@@ -1298,34 +1275,63 @@ function getWeekRange(offset) {
   return {start:mon, end:sun};
 }
 
+function buildWeekDropdown() {
+  var sel = document.getElementById('cf-week-select');
+  if (!sel || sel.options.length > 1) return; // already built
+  // Generate weeks covering all booking dates
+  var now = new Date();
+  var day = now.getDay();
+  // Start from the Monday of 4 weeks ago
+  var start = new Date(now);
+  start.setDate(now.getDate() - (day === 0 ? 6 : day - 1) - 28);
+  start.setHours(0,0,0,0);
+  var end = new Date(start);
+  end.setDate(start.getDate() + 365); // cover a full year
+  var pad = function(n){ return String(n).padStart(2,'0'); };
+  for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 7)) {
+    var key = d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+    var lbl = pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();
+    var opt = document.createElement('option');
+    opt.value = key; opt.textContent = 'w/b ' + lbl;
+    sel.appendChild(opt);
+  }
+}
+
 function filterCal(mode) {
   CAL_FILTER = mode;
-  WEEK_OFFSET = 0;
+  if (mode === 'nextweek') { WEEK_OFFSET = 1; }
+  else if (mode === 'week') { WEEK_OFFSET = 0; }
   // Sync button active states
-  ['week','month','all'].forEach(function(b) {
+  ['week','nweek','month','all'].forEach(function(b) {
     var el = document.getElementById('cf-'+b);
-    if (el) el.classList.toggle('active', b === mode);
+    if (el) el.classList.toggle('active', b === mode || (b === 'nweek' && mode === 'nextweek'));
   });
-  // If a specific mode (not 'pick') is chosen, reset the dropdown
-  if (mode !== 'pick') {
-    var sel = document.getElementById('cf-month-select');
-    if (sel) sel.value = '';
+  // Reset week dropdown if not using it
+  if (mode !== 'pickweek') {
+    var wsel = document.getElementById('cf-week-select');
+    if (wsel) wsel.value = '';
   }
+  // Reset month dropdown
+  var msel = document.getElementById('cf-month-select');
+  if (msel) msel.value = '';
   renderCal();
 }
 
 function getFiltered() {
   var now = new Date(); now.setHours(0,0,0,0);
-  var wr = getWeekRange(0);
   var thisMonth = now.toISOString().slice(0,7);
   return ALL_BOOKINGS.filter(function(b) {
     var d = new Date(b.date + 'T00:00:00');
-    if (CAL_FILTER === 'week')  return d >= wr.start && d <= wr.end;
-    if (CAL_FILTER === 'month') return b.date.slice(0,7) === thisMonth;
-    if (CAL_FILTER === 'pick') {
-      var sel = document.getElementById('cf-month-select');
+    if (CAL_FILTER === 'week')     { var wr=getWeekRange(0); return d >= wr.start && d <= wr.end; }
+    if (CAL_FILTER === 'nextweek') { var wr=getWeekRange(1); return d >= wr.start && d <= wr.end; }
+    if (CAL_FILTER === 'month')    return b.date.slice(0,7) === thisMonth;
+    if (CAL_FILTER === 'pickweek') {
+      var sel = document.getElementById('cf-week-select');
       var picked = sel ? sel.value : '';
-      return picked ? b.date.slice(0,7) === picked : true;
+      if (!picked) return false;
+      var ws = new Date(picked + 'T00:00:00');
+      var we = new Date(ws); we.setDate(ws.getDate() + 6); we.setHours(23,59,59,999);
+      return d >= ws && d <= we;
     }
     return d >= now;
   });
@@ -1631,6 +1637,7 @@ function showToast(msg, type) {
 
 // ── Init ──
 function initFacilitiesTab() {
+  buildWeekDropdown();
   // Set today's date as default
   var facDate = document.getElementById('fac-date');
   if (facDate && !facDate.value) {
