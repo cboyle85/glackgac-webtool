@@ -559,7 +559,7 @@ function drawCrestAndLogo(ctx,W,teamType){
   }
   var orgImg=teamType==='ladies'?IMG.lgfa:IMG.gaa;
   if(orgImg){
-    var lh=90, lr=teamType==='ladies'?(269/148):(1200/780), lw=lh*lr;
+    var lh=45, lr=teamType==='ladies'?(269/148):(1200/780), lw=lh*lr;
     ctx.drawImage(orgImg,(W-24-lw)*SC,(22+44-lh/2)*SC,lw*SC,lh*SC);
   }
 }
